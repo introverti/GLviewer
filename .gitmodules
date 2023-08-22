@@ -4,3 +4,7 @@
 [submodule "glm"]
 	path = glm
 	url = git@github.com:g-truc/glm.git
+[submodule "imgui-node-editor"]
+	path = imgui-node-editor
+	url = git@github.com:introverti/imgui-node-editor.git
+	branch = develop
