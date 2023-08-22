@@ -14,6 +14,17 @@ add_library(logger SHARED src/logger/logger.cpp)
 target_include_directories(logger PUBLIC include)
 target_link_libraries(logger spdlog::spdlog)
 
+# imgui
+file(GLOB IMGUI_SRC imgui/*.cpp
+        imgui/backends/imgui_impl_glfw.cpp
+        imgui/backends/imgui_impl_opengl3.cpp
+        imgui/misc/cpp/imgui_stdlib.cpp)
+file(GLOB IMGUI_HEADERS imgui/*.h
+        imgui/backends/imgui_impl_glfw.h
+        imgui/backends/imgui_impl_opengl3.h
+        imgui/backends/imgui_impl_opengl3_loader.h
+        imgui/misc/cpp/imgui_stdlib.h) 
+
 
 file(GLOB_RECURSE headers CONFIGURE_DEPENDS include/*.h)
 add_subdirectory(glm)
@@ -33,3 +44,8 @@ target_link_libraries(tribody PUBLIC ${GLOBAL_DEPENDENCES})
 add_executable(loadpcd ./src/pcd_load.cc ${headers})
 target_include_directories(loadpcd PUBLIC include)
 target_link_libraries(loadpcd PUBLIC ${GLOBAL_DEPENDENCES})
+
+
+add_executable(example_imgui ./src/example_imgui.cpp  ${IMGUI_HEADERS} ${IMGUI_SRC} ${headers})
+target_include_directories(example_imgui PUBLIC include imgui imgui/backends imgui/misc/cpp)
+target_link_libraries(example_imgui PUBLIC ${GLOBAL_DEPENDENCES})
